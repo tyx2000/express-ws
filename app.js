@@ -34,13 +34,10 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('disconnect');
   });
-  socket.on('chat', (msg) => {
-    console.log(msg);
+  socket.on('transferCenter', ({ targetSocketId, message }) => {
+    console.log('ttttttt', targetSocketId, message);
+    io.to(targetSocketId).emit('receiveMessage', message);
   });
-});
-
-io.on('message', ({ targetSocketId, message }) => {
-  io.to(targetSocketId).emit('message', message);
 });
 
 app.use(cors());
